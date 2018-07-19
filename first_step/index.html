@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>First test for WebGL</title>
+
+
+    <style>
+        body{
+            margin: 0;
+        }
+        canvas{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+
+</head>
+<body>
+<script src="three.js" type="text/javascript"></script>
+
+<script>
+
+    var scene = new THREE.Scene(); //set a scene
+
+    //set a camera
+    var camera = new THREE.PerspectiveCamera(75, window.innerWidth/ window.innerHeight, 0.1, 1000);
+
+    //set a render
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    var geometry = new THREE.BoxGeometry(1,1,1);
+    var material = new THREE.MeshBasicMaterial({color: 0xff0000});
+    var cube = new THREE.Mesh(geometry, material); //create the cube with var geometry and material
+    scene.add(cube); //add the cube into scene
+
+
+    //set the camera position 数字越大图形越远（小）
+    camera.position.z = 5;
+
+
+    //set the animation of cube
+
+    var render = function () {
+        requestAnimationFrame(render);
+
+        cube.rotation.z += 0.01;
+        cube.rotation.y += 0.01;
+
+        renderer.render(scene,camera);
+    };
+
+    render();
+
+
+
+
+
+</script>
+</body>
+</html>
