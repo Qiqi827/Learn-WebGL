@@ -39,6 +39,15 @@
     scene.add(cube); //add the cube into scene
     cube.castShadow = true; //you have to label shadow on things need shadow
 
+    //another box
+    var box = new THREE.BoxGeometry(1,1,1);
+    var mat = new THREE.MeshLambertMaterial({color:0xff6600});
+    var mesh = new THREE.Mesh(box, mat);
+    // mesh.position(30,30,30);
+    mesh.position.y = -2;
+    mesh.position.x = -2;
+    // scene.add(mesh);
+
 
 
     //add spotlight
@@ -61,6 +70,35 @@
         mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
     }
 
+    //add mouse click function
+    //click model and add another scene here
+
+    window.addEventListener('click',onMouseClick, false);
+    function onMouseClick( event ) {
+        // event.preventDefault();
+        mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+        mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+        // 通过鼠标点的位置和当前相机的矩阵计算出raycaster
+        raycaster.setFromCamera( mouse, camera );
+
+        // 获取raycaster直线和所有模型相交的数组集合
+        var intersects = raycaster.intersectObjects( scene.children );
+
+        console.log(intersects);
+
+
+
+        for ( var i = 0; i < intersects.length; i++ ) {
+
+            // intersects[ i ].object.material.color.set( 0xff0000 );
+            scene.add(mesh);
+
+        }
+
+
+    }
+
 
 
     //set the animation of cube
@@ -75,6 +113,8 @@
         var intersects = raycaster.intersectObjects( scene.children );
 
         if ( intersects.length > 0 ) {
+
+
             if ( INTERSECTED !== intersects[ 0 ].object ) {
                 if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
                 // if ( INTERSECTED ) INTERSECTED.material.setHex( INTERSECTED.currentHex );
@@ -83,12 +123,18 @@
                 INTERSECTED.material.emissive.setHex( 0xff0000 );
             }
 
+
+
         } else {
 
             if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
 
             INTERSECTED = null;
+
+
         }
+
+
 
 
 
@@ -102,97 +148,6 @@
 
     render();
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--<script>-->
-   <!--var camera, scene, light, raycaster, renderer,container;-->
-   <!--var mesh, geometry, material;-->
-
-   <!--init();-->
-   <!--animate();-->
-
-   <!--function init() {-->
-
-
-       <!--//create a scene-->
-       <!--scene = new THREE.Scene();-->
-       <!--//create a camera-->
-       <!--camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);-->
-       <!--camera.position.z = 500;-->
-       <!--//add some light-->
-       <!--// light = new THREE.DirectionalLight(0xffffff, 1);-->
-       <!--// light.position.set(1, 1, 1).normalize();-->
-       <!--// scene.add(light);-->
-
-       <!--geometry = new THREE.CubeGeometry(200, 200, 200);-->
-       <!--material = new THREE.MeshNormalMaterial();-->
-       <!--mesh = new THREE.Mesh(geometry, material);-->
-       <!--scene.add(mesh);-->
-
-       <!--//renderer-->
-       <!--renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});-->
-       <!--renderer.setPixelRatio(window.devicePixelRatio);-->
-       <!--renderer.setSize(window.innerWidth, window.innerHeight);-->
-       <!--container.appendChild(renderer.domElement);-->
-
-
-   <!--}-->
-    <!--//resize the window-->
-    <!--window.addEventListener('resize', onWindowResize, false);-->
-
-    <!--function onWindowResize(){-->
-       <!--camera.aspect = window.innerWidth/ window.innerHeight;-->
-       <!--camera.updateProjectionMatrix();-->
-       <!--renderer.setSize(window.innerWidth, window.innerHeight);-->
-    <!--}-->
-
-    <!--//start animate-->
-    <!--function animate() {-->
-       <!--requestAnimationFrame(animate);-->
-       <!--render();-->
-    <!--}-->
-
-    <!--//render set-->
-    <!--function render() {-->
-         <!--mesh.rotation.z += 0.01;-->
-         <!--mesh.rotation.y += 0.01;-->
-
-
-
-       <!--renderer.render(scene,camera);-->
-
-    <!--}-->
-
-
-<!--</script>-->
 
 </body>
 </html>
