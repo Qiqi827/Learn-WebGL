@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>this is a test for interactive function</title>
+
+</head>
+<body>
+<!--add scripts for 3D function here-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.js"></script>
+
+
+<script>
+    var raycaster;
+    var mouse = new THREE.Vector2(),INTERSECTED;
+    var radius = 100, theta = 0;
+
+    var scene = new THREE.Scene(); //set a scene
+
+
+    //set a camera
+    var camera = new THREE.PerspectiveCamera(75, window.innerWidth/ window.innerHeight, 0.1, 1000);
+
+
+
+    //set a render
+    var renderer = new THREE.WebGLRenderer({alpha:true , antialias: true});
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+
+
+
+    var geometry = new THREE.BoxGeometry(1,1,1);
+    //change the material here
+    var material = new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } );
+
+    var cube = new THREE.Mesh(geometry, material); //create the cube with var geometry and material
+    scene.add(cube); //add the cube into scene
+    cube.castShadow = true; //you have to label shadow on things need shadow
+
+
+
+    //add spotlight
+    var spotLight = new THREE.SpotLight(0xffffff);//set a spotlight with color
+    spotLight.castShadow = true;
+    spotLight.position.set(15, 30, 30); //set the position
+    scene.add(spotLight);//add it into scene(always do it)
+    //set the camera position 数字越大图形越远（小）
+    camera.position.z = 5;
+
+    //set Raycaster here
+    raycaster = new THREE.Raycaster();
+
+    //mouse function
+    document.addEventListener('mousemove',onDocumentMouseMove, false);
+    //locate the mouse
+    function onDocumentMouseMove( event ) {
+        // event.preventDefault();
+        mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+        mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+    }
+
+
+
+    //set the animation of cube
+    var render = function () {
+        requestAnimationFrame(render);
+        cube.rotation.z += 0.01;
+        cube.rotation.y += 0.01;
+
+
+        // find intersections
+        raycaster.setFromCamera( mouse, camera );
+        var intersects = raycaster.intersectObjects( scene.children );
+
+        if ( intersects.length > 0 ) {
+            if ( INTERSECTED !== intersects[ 0 ].object ) {
+                if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+                // if ( INTERSECTED ) INTERSECTED.material.setHex( INTERSECTED.currentHex );
+                INTERSECTED = intersects[ 0 ].object;
+                INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+                INTERSECTED.material.emissive.setHex( 0xff0000 );
+            }
+
+        } else {
+
+            if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+
+            INTERSECTED = null;
+        }
+
+
+
+
+        renderer.render(scene,camera);
+    };
+
+
+
+
+
+    render();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<script>-->
+   <!--var camera, scene, light, raycaster, renderer,container;-->
+   <!--var mesh, geometry, material;-->
+
+   <!--init();-->
+   <!--animate();-->
+
+   <!--function init() {-->
+
+
+       <!--//create a scene-->
+       <!--scene = new THREE.Scene();-->
+       <!--//create a camera-->
+       <!--camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);-->
+       <!--camera.position.z = 500;-->
+       <!--//add some light-->
+       <!--// light = new THREE.DirectionalLight(0xffffff, 1);-->
+       <!--// light.position.set(1, 1, 1).normalize();-->
+       <!--// scene.add(light);-->
+
+       <!--geometry = new THREE.CubeGeometry(200, 200, 200);-->
+       <!--material = new THREE.MeshNormalMaterial();-->
+       <!--mesh = new THREE.Mesh(geometry, material);-->
+       <!--scene.add(mesh);-->
+
+       <!--//renderer-->
+       <!--renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});-->
+       <!--renderer.setPixelRatio(window.devicePixelRatio);-->
+       <!--renderer.setSize(window.innerWidth, window.innerHeight);-->
+       <!--container.appendChild(renderer.domElement);-->
+
+
+   <!--}-->
+    <!--//resize the window-->
+    <!--window.addEventListener('resize', onWindowResize, false);-->
+
+    <!--function onWindowResize(){-->
+       <!--camera.aspect = window.innerWidth/ window.innerHeight;-->
+       <!--camera.updateProjectionMatrix();-->
+       <!--renderer.setSize(window.innerWidth, window.innerHeight);-->
+    <!--}-->
+
+    <!--//start animate-->
+    <!--function animate() {-->
+       <!--requestAnimationFrame(animate);-->
+       <!--render();-->
+    <!--}-->
+
+    <!--//render set-->
+    <!--function render() {-->
+         <!--mesh.rotation.z += 0.01;-->
+         <!--mesh.rotation.y += 0.01;-->
+
+
+
+       <!--renderer.render(scene,camera);-->
+
+    <!--}-->
+
+
+<!--</script>-->
+
+</body>
+</html>
