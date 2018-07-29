@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>this is a test for interactive function</title>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.2.0/Tween.js"></script>
+
+</head>
+
+<style>
+    #background {
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+    }
+
+    #div1 {
+        background:#eeeeee;
+        width: 70%;
+        z-index: 1;
+        margin: 12% auto;
+        overflow: auto;
+    }
+
+    span {
+        color: white;
+        padding-top: 12px;
+        cursor: pointer;
+        padding-right: 15px;
+    }
+
+    #div2 {
+        background:#eeeeee;
+        margin: auto;
+        height: 300px;
+        padding: 0 20px;
+    }
+
+    #close {
+        padding: 5px;
+        background: #5cd31b;
+    }
+
+    #close-button {
+        float: right;
+        font-size: 30px;
+    }
+
+    #foot {
+        padding: 5px 0;
+        text-align: center;
+        background: #5cd31b;
+        color: white;
+    }
+
+    h2 {
+        margin: 10px 0;
+        color: white;
+        padding-left: 15px;
+    }
+
+    h3 {
+        margin: 0 0px;
+        padding-top: 15px;
+    }
+
+</style>
+<body>
+<!--add scripts for 3D function here-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.js"></script>
+
+<div id="container">
+<!-- Modal -->
+    <div id="background" class="back">
+        <div id="div1" class="content">
+            <div id="close">
+                <span id="close-button">×</span>
+                <h2>弹窗头部</h2>
+            </div>
+            <div id="div2">
+                <h3>弹窗标题</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, ullam, nisi, enim laboriosam ea cum necessitatibus ipsum cupiditate neque soluta qui autem odit eligendi blanditiis voluptatem repellat suscipit quia perspiciatis.</p>
+            </div>
+            <h3 id="foot">底部内容</h3>
+        </div>
+    </div>
+
+
+</div>
+
+
+<script src="iajs.js" type="text/javascript"></script>
+
+</body>
+</html>
