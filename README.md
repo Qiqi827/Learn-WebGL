@@ -13,3 +13,7 @@ Start from 17/07/2018 :)
 
 29/07/2018 Processing:
 1. Made a MouseClick function on change camera posizion( to make the smooth transform) and pop-up window.
+
+03/08/2018 Processing:
+1. create an arrow by three.js geometry.
+2. add an animation on this arrow.
