@@ -17,3 +17,6 @@ Start from 17/07/2018 :)
 03/08/2018 Processing:
 1. create an arrow by three.js geometry.
 2. add an animation on this arrow.
+
+04/08/2018 Processing:
+1. create a simple airplane
